@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Элементы решения/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Quadrat/Quadrat.vcxproj" />
+  <Project Path="QuadraticTests/QuadraticTests.vcxproj" />
+</Solution>
