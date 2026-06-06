@@ -11,6 +11,17 @@ public:
         long double& value
     );
 
+    static bool isEquation(
+        const std::string& str
+    );
+
+    static bool parseEquation(
+        const std::string& equation,
+        long double& a,
+        long double& b,
+        long double& c
+    );
+
 private:
 
     static bool validateFormat(

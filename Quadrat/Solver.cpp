@@ -10,7 +10,7 @@ EquationResult Solver::solve(long double a, long double b, long double c)
 {
     EquationResult result;
 
-    // Р›РёРЅРµР№РЅРѕРµ СѓСЂР°РІРЅРµРЅРёРµ
+    // Линейное уравнение
     if (std::abs(a) < EPS)
     {
         if (std::abs(b) < EPS)
@@ -38,14 +38,14 @@ EquationResult Solver::solve(long double a, long double b, long double c)
         return result;
     }
 
-    // Р”РёСЃРєСЂРёРјРёРЅР°РЅС‚
+    // Дискриминант
     long double D = b * b - 4 * a * c;
 
     result.discriminant = D;
 
     result.type = ResultType::OK;
 
-    // РћРґРёРЅ РєРѕСЂРµРЅСЊ
+    // Один корень
     if (std::abs(D) < EPS)
     {
         long double x = -b / (2 * a);
@@ -57,7 +57,7 @@ EquationResult Solver::solve(long double a, long double b, long double c)
         return result;
     }
 
-    // Р”РІР° РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹С… РєРѕСЂРЅСЏ
+    // Два действительных корня
     if (D > 0)
     {
         long double x1 =
@@ -77,7 +77,7 @@ EquationResult Solver::solve(long double a, long double b, long double c)
         return result;
     }
 
-    // РљРѕРјРїР»РµРєСЃРЅС‹Рµ РєРѕСЂРЅРё
+    // Комплексные корни
     long double real =
         -b / (2 * a);
 

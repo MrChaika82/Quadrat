@@ -8,7 +8,7 @@ void ResultPrinter::print(const EquationResult& result)
     {
     case ResultType::OK:
 
-        std::cout << "Ð ÐµÑˆÐµÐ½Ð¸Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾:\n";
+        std::cout << "Ðåøåíèå íàéäåíî:\n";
 
         std::cout
             << "D = "
@@ -16,7 +16,7 @@ void ResultPrinter::print(const EquationResult& result)
             << "\n\n";
 
         std::cout
-            << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÐºÐ¾Ñ€Ð½ÐµÐ¹: "
+            << "Êîëè÷åñòâî êîðíåé: "
             << result.roots.size()
             << "\n\n";
 

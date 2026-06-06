@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -15,7 +15,7 @@ int main()
 
     while (true)
     {
-        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹ a b c:\n";
+        std::cout << "Ââåäèòå êîýôôèöèåíòû a b c:\n";
 
         std::string line;
         std::getline(std::cin, line);
@@ -27,7 +27,7 @@ int main()
         std::string cStr;
         std::string extra;
 
-        // ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼, Ñ‡Ñ‚Ð¾ Ð²Ð²ÐµÐ´ÐµÐ½Ð¾ Ñ€Ð¾Ð²Ð½Ð¾ 3 Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ
+        // Ïðîâåðÿåì, ÷òî ââåäåíî ðîâíî 3 çíà÷åíèÿ
         if (!(ss >> aStr >> bStr >> cStr) || (ss >> extra))
         {
             std::cout << "WRONG\n";
@@ -38,7 +38,7 @@ int main()
             long double b;
             long double c;
 
-            // ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ñ‡Ð¸ÑÐµÐ»
+            // Ïðîâåðÿåì êîððåêòíîñòü ÷èñåë
             if (!Parser::parseNumber(aStr, a) ||
                 !Parser::parseNumber(bStr, b) ||
                 !Parser::parseNumber(cStr, c))
@@ -54,7 +54,7 @@ int main()
             }
         }
 
-        std::cout << "\nÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ? (y/n): ";
+        std::cout << "\nÏðîäîëæèòü? (y/n): ";
 
         std::string answer;
         std::getline(std::cin, answer);
