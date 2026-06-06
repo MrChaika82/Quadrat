@@ -41,6 +41,8 @@ EquationResult Solver::solve(long double a, long double b, long double c)
     // Дискриминант
     long double D = b * b - 4 * a * c;
 
+    result.discriminant = D;
+
     result.type = ResultType::OK;
 
     // Один корень

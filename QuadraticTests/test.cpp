@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
 #include "../Quadrat/Parser.h"
-
 #include "../Quadrat/Solver.h"
+
 
 TEST(ParserTests, ValidNumber)
 {
@@ -30,3 +30,4 @@ TEST(SolverTests, TwoRoots)
 
     ASSERT_EQ(result.roots.size(), 2);
 }
+

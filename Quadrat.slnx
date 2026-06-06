@@ -6,6 +6,6 @@
   <Folder Name="/Элементы решения/">
     <File Path="README.md" />
   </Folder>
-  <Project Path="Quadrat/Quadrat.vcxproj" />
-  <Project Path="QuadraticTests/QuadraticTests.vcxproj" />
+  <Project Path="Quadrat/Quadrat.vcxproj" Id="d81f2f6b-9c84-488c-8895-430bb7803c9d" />
+  <Project Path="QuadraticTests/QuadraticTests.vcxproj" Id="133847f1-81ec-4bc6-8b63-39d215454649" />
 </Solution>

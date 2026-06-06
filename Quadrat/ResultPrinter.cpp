@@ -8,15 +8,26 @@ void ResultPrinter::print(const EquationResult& result)
     {
     case ResultType::OK:
 
-        std::cout << "OK\n";
+        std::cout << "Решение найдено:\n";
 
         std::cout
-            << result.roots.size()
-            << "\n";
+            << "D = "
+            << result.discriminant
+            << "\n\n";
 
-        for (const auto& root : result.roots)
+        std::cout
+            << "Количество корней: "
+            << result.roots.size()
+            << "\n\n";
+
+        for (size_t i = 0; i < result.roots.size(); i++)
         {
-            std::cout << root << "\n";
+            std::cout
+                << "x"
+                << i + 1
+                << " = "
+                << result.roots[i]
+                << "\n";
         }
 
         break;

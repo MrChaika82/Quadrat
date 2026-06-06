@@ -13,4 +13,6 @@ enum class ResultType {
 struct EquationResult {
     ResultType type;
     std::vector<std::string> roots;
+
+    long double discriminant = 0;
 };

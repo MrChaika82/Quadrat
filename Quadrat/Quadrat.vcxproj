@@ -143,8 +143,8 @@
     <ClCompile Include="EquationResult.cpp" />
     <ClCompile Include="EquationResult.h" />
     <ClCompile Include="Formatter.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
-    <ClCompile Include="Quadrat.cpp" />
     <ClCompile Include="ResultPrinter.cpp" />
     <ClCompile Include="Solver.cpp" />
   </ItemGroup>
