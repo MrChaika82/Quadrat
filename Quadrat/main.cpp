@@ -20,6 +20,31 @@ int main()
         std::string line;
         std::getline(std::cin, line);
 
+        if (Parser::isEquation(line))
+        {
+            long double a;
+            long double b;
+            long double c;
+
+            if (Parser::parseEquation(line, a, b, c))
+            {
+                std::cout << "a = " << a << "\n";
+                std::cout << "b = " << b << "\n";
+                std::cout << "c = " << c << "\n\n";
+
+                EquationResult result =
+                    Solver::solve(a, b, c);
+
+                ResultPrinter::print(result);
+            }
+            else
+            {
+                std::cout << "WRONG\n";
+            }
+
+            continue;
+        }
+
         std::stringstream ss(line);
 
         std::string aStr;
@@ -27,7 +52,6 @@ int main()
         std::string cStr;
         std::string extra;
 
-        // Проверяем, что введено ровно 3 значения
         if (!(ss >> aStr >> bStr >> cStr) || (ss >> extra))
         {
             std::cout << "WRONG\n";
@@ -38,7 +62,7 @@ int main()
             long double b;
             long double c;
 
-            // Проверяем корректность чисел
+
             if (!Parser::parseNumber(aStr, a) ||
                 !Parser::parseNumber(bStr, b) ||
                 !Parser::parseNumber(cStr, c))

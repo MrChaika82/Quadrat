@@ -5,6 +5,8 @@
 #include <cctype>
 //
 #include <algorithm>
+#include <vector>
+#include <iostream>
 
 bool Parser::parseNumber(
     const std::string& str,
@@ -75,8 +77,6 @@ bool Parser::parseEquation(
         expr.end()
     );
 
-    return false;
-
     if (expr.size() < 5)
     {
         return false;
@@ -92,11 +92,112 @@ bool Parser::parseEquation(
     std::string leftPart =
         expr.substr(0, equalPos);
 
-    if (leftPart.find("x^2") == std::string::npos)
+    if (leftPart[0] != '+' && leftPart[0] != '-')
     {
-        return false;
+        leftPart = "+" + leftPart;
     }
 
-    return false;
+    //
+
+    a = 0;
+    b = 0;
+    c = 0;
+
+    std::vector<std::string> terms;
+
+    std::string current;
+
+    for (size_t i = 0; i < leftPart.size(); i++)
+    {
+        char ch = leftPart[i];
+
+        if ((ch == '+' || ch == '-') &&
+            !current.empty())
+        {
+            terms.push_back(current);
+
+            current.clear();
+        }
+
+        current += ch;
+    }
+
+    if (!current.empty())
+    {
+        terms.push_back(current);
+    }
+
+    for (const auto& term : terms)
+    {
+        if (term.find("x^2") != std::string::npos)
+        {
+            std::string coef =
+                term.substr(0, term.find("x^2"));
+
+            if (coef == "+" || coef.empty())
+            {
+                a = 1;
+            }
+            else if (coef == "-")
+            {
+                a = -1;
+            }
+            else
+            {
+                a = std::stold(coef);
+            }
+        }
+    }
+
+    for (const auto& term : terms)
+    {
+        if (term.find("x^2") != std::string::npos)
+        {
+            std::string coef =
+                term.substr(0, term.find("x^2"));
+
+            if (coef == "+" || coef.empty())
+            {
+                a = 1;
+            }
+            else if (coef == "-")
+            {
+                a = -1;
+            }
+            else
+            {
+                a = std::stold(coef);
+            }
+        }
+        else if (
+            term.find("x") != std::string::npos &&
+            term.find("x^2") == std::string::npos
+            )
+        {
+            std::string coef =
+                term.substr(0, term.find("x"));
+
+            if (coef == "+" || coef.empty())
+            {
+                b = 1;
+            }
+            else if (coef == "-")
+            {
+                b = -1;
+            }
+            else
+            {
+                b = std::stold(coef);
+            }
+        }
+        else
+        {
+            c = std::stold(term);
+        }
+    }
+
+    //
+
+    return true;
 
 }
