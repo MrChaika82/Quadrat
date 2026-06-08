@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <limits>
 
 bool Parser::parseNumber(
     const std::string& str,
@@ -18,33 +19,51 @@ bool Parser::parseNumber(
         return false;
     }
 
-    bool hasDecimalPoint = false;
+    //bool hasDecimalPoint = false;
 
-    for (size_t i = 0; i < str.size(); i++)
+    //for (size_t i = 0; i < str.size(); i++)
+    //{
+    //    char ch = str[i];
+
+    //    if (i == 0 && (ch == '+' || ch == '-'))
+    //    {
+    //        continue;
+    //    }
+
+    //    if (ch == '.')
+    //    {
+
+    //        if (hasDecimalPoint)
+    //        {
+    //            return false;
+    //        }
+
+    //        hasDecimalPoint = true;
+    //        continue;
+    //    }
+
+    //    if (!std::isdigit(ch))
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    if (str == "inf")
     {
-        char ch = str[i];
+        value = std::numeric_limits<long double>::infinity();
+        return true;
+    }
 
-        if (i == 0 && (ch == '+' || ch == '-'))
-        {
-            continue;
-        }
+    if (str == "-inf")
+    {
+        value = -std::numeric_limits<long double>::infinity();
+        return true;
+    }
 
-        if (ch == '.')
-        {
-
-            if (hasDecimalPoint)
-            {
-                return false;
-            }
-
-            hasDecimalPoint = true;
-            continue;
-        }
-
-        if (!std::isdigit(ch))
-        {
-            return false;
-        }
+    if (str == "nan")
+    {
+        value = std::numeric_limits<long double>::quiet_NaN();
+        return true;
     }
 
     std::stringstream ss(str);

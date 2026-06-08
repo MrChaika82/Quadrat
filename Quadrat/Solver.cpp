@@ -82,13 +82,14 @@ EquationResult Solver::solve(long double a, long double b, long double c)
 
     std::string root1 =
         Formatter::formatNumber(real)
-        + " " +
-        Formatter::formatNumber(imag);
+        + "+"
+        + Formatter::formatNumber(imag)
+        + "i";
 
     std::string root2 =
         Formatter::formatNumber(real)
-        + " " +
-        Formatter::formatNumber(-imag);
+        + Formatter::formatNumber(-imag)
+        + "i";
 
     result.roots.push_back(root1);
     result.roots.push_back(root2);
