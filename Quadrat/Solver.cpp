@@ -78,7 +78,7 @@ EquationResult Solver::solve(long double a, long double b, long double c)
         -b / (2 * a);
 
     long double imag =
-        std::sqrt(-D) / (2 * a);
+        std::sqrt(-D) / (2 * std::abs(a));
 
     std::string root1 =
         Formatter::formatNumber(real)

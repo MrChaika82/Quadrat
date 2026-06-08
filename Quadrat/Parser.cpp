@@ -19,35 +19,6 @@ bool Parser::parseNumber(
         return false;
     }
 
-    //bool hasDecimalPoint = false;
-
-    //for (size_t i = 0; i < str.size(); i++)
-    //{
-    //    char ch = str[i];
-
-    //    if (i == 0 && (ch == '+' || ch == '-'))
-    //    {
-    //        continue;
-    //    }
-
-    //    if (ch == '.')
-    //    {
-
-    //        if (hasDecimalPoint)
-    //        {
-    //            return false;
-    //        }
-
-    //        hasDecimalPoint = true;
-    //        continue;
-    //    }
-
-    //    if (!std::isdigit(ch))
-    //    {
-    //        return false;
-    //    }
-    //}
-
     if (str == "inf")
     {
         value = std::numeric_limits<long double>::infinity();
@@ -144,28 +115,6 @@ bool Parser::parseEquation(
     if (!current.empty())
     {
         terms.push_back(current);
-    }
-
-    for (const auto& term : terms)
-    {
-        if (term.find("x^2") != std::string::npos)
-        {
-            std::string coef =
-                term.substr(0, term.find("x^2"));
-
-            if (coef == "+" || coef.empty())
-            {
-                a = 1;
-            }
-            else if (coef == "-")
-            {
-                a = -1;
-            }
-            else
-            {
-                a = std::stold(coef);
-            }
-        }
     }
 
     for (const auto& term : terms)
