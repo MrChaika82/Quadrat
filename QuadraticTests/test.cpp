@@ -31,3 +31,112 @@ TEST(SolverTests, TwoRoots)
     ASSERT_EQ(result.roots.size(), 2);
 }
 
+TEST(SolverTests, OneRoot)
+{
+    EquationResult result =
+        Solver::solve(1, 2, 1);
+
+    ASSERT_EQ(result.roots.size(), 1);
+}
+
+TEST(SolverTests, ComplexRoots)
+{
+    EquationResult result =
+        Solver::solve(1, 0, 1);
+
+    ASSERT_EQ(result.roots.size(), 2);
+}
+
+TEST(SolverTests, LinearEquation)
+{
+    EquationResult result =
+        Solver::solve(0, 2, -4);
+
+    ASSERT_EQ(result.roots.size(), 1);
+}
+
+TEST(ParserTests, ParseEquation)
+{
+    long double a;
+    long double b;
+    long double c;
+
+    bool result =
+        Parser::parseEquation(
+            "x^2 - 5x + 4 = 0",
+            a,
+            b,
+            c
+        );
+
+    ASSERT_TRUE(result);
+
+    ASSERT_EQ(a, 1);
+    ASSERT_EQ(b, -5);
+    ASSERT_EQ(c, 4);
+}
+
+TEST(ParserTests, InvalidEquation)
+{
+    long double a;
+    long double b;
+    long double c;
+
+    bool result =
+        Parser::parseEquation(
+            "x^2 - 5x + 4 = 1",
+            a,
+            b,
+            c
+        );
+
+    ASSERT_FALSE(result);
+}
+
+TEST(SolverTests, InfiniteSolutions)
+{
+    EquationResult result =
+        Solver::solve(0, 0, 0);
+
+    ASSERT_EQ(
+        result.type,
+        ResultType::INF
+    );
+}
+
+TEST(SolverTests, NoSolution)
+{
+    EquationResult result =
+        Solver::solve(0, 0, 5);
+
+    ASSERT_EQ(
+        result.type,
+        ResultType::NO_SOLUTION
+    );
+}
+
+TEST(ParserTests, ScientificNotation)
+{
+    long double value;
+
+    bool result =
+        Parser::parseNumber(
+            "1e100",
+            value
+        );
+
+    ASSERT_TRUE(result);
+}
+
+TEST(ParserTests, Infinity)
+{
+    long double value;
+
+    bool result =
+        Parser::parseNumber(
+            "inf",
+            value
+        );
+
+    ASSERT_TRUE(result);
+}
