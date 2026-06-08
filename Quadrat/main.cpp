@@ -15,7 +15,9 @@ int main()
 
     while (true)
     {
-        std::cout << "Введите коэффициенты a b c:\n";
+        std::cout
+            << "Введите коэффициенты a b c\n"
+            << "или квадратное уравнение:\n";
 
         std::string line;
         std::getline(std::cin, line);
@@ -41,6 +43,18 @@ int main()
             {
                 std::cout << "WRONG\n";
             }
+
+            std::cout << "\nПродолжить? (y/n): ";
+
+            std::string answer;
+            std::getline(std::cin, answer);
+
+            if (answer == "n" || answer == "N")
+            {
+                break;
+            }
+
+            std::cout << "\n";
 
             continue;
         }
