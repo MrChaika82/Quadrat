@@ -72,12 +72,21 @@ bool Parser::parseEquation(
         return false;
     }
 
-    if (expr.find("=0") == std::string::npos)
+    //
+
+    size_t equalPos = expr.find('=');
+
+    if (equalPos == std::string::npos)
     {
         return false;
     }
 
-    size_t equalPos = expr.find('=');
+    if (expr.substr(equalPos + 1) != "0")
+    {
+        return false;
+    }
+
+    //
 
     std::string leftPart =
         expr.substr(0, equalPos);
