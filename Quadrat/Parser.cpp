@@ -61,6 +61,15 @@ bool Parser::parseEquation(
 )
 {
     std::string expr = equation;
+    
+    //
+    std::transform(
+        expr.begin(),
+        expr.end(),
+        expr.begin(),
+        ::tolower
+    );
+     //
 
     expr.erase(
         std::remove(expr.begin(), expr.end(), ' '),

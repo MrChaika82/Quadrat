@@ -80,6 +80,22 @@ EquationResult Solver::solve(long double a, long double b, long double c)
     long double imag =
         std::sqrt(-D) / (2 * std::abs(a));
 
+    if (std::isnan(real) || std::isnan(imag))
+    {
+        result.roots.push_back("nan");
+        result.roots.push_back("nan");
+
+        return result;
+    }
+
+    if (std::isinf(real) || std::isinf(imag))
+    {
+        result.roots.push_back("inf");
+        result.roots.push_back("inf");
+
+        return result;
+    }
+
     std::string root1 =
         Formatter::formatNumber(real)
         + "+"
