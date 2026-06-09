@@ -115,12 +115,28 @@ bool Parser::parseEquation(
 
     std::string current;
 
+    int bracketLevel = 0;
+    //
+
     for (size_t i = 0; i < leftPart.size(); i++)
     {
         char ch = leftPart[i];
 
-        if ((ch == '+' || ch == '-') &&
-            !current.empty())
+        if (ch == '(')
+        {
+            bracketLevel++;
+        }
+
+        if (ch == ')')
+        {
+            bracketLevel--;
+        }
+
+        if (
+            (ch == '+' || ch == '-') &&
+            !current.empty() &&
+            bracketLevel == 0
+            )
         {
             terms.push_back(current);
 
@@ -129,11 +145,19 @@ bool Parser::parseEquation(
 
         current += ch;
     }
+    //
 
     if (!current.empty())
     {
         terms.push_back(current);
     }
+
+    //
+    for (const auto& term : terms)
+    {
+        std::cout << "[" << term << "]\n";
+    }
+    //
 
     for (const auto& term : terms)
     {
@@ -152,7 +176,10 @@ bool Parser::parseEquation(
             }
             else
             {
-                a = std::stold(coef);
+                if (!evaluateExpression(coef, a))
+                {
+                    return false;
+                }
             }
         }
         else if (
@@ -173,12 +200,18 @@ bool Parser::parseEquation(
             }
             else
             {
-                b = std::stold(coef);
+                if (!evaluateExpression(coef, b))
+                {
+                    return false;
+                }
             }
         }
         else
         {
-            c = std::stold(term);
+            if (!evaluateExpression(term, c))
+            {
+                return false;
+            }
         }
     }
 
@@ -192,25 +225,45 @@ bool Parser::evaluateExpression(
     long double& value
 )
 {
+    //
+    std::string expr = expression;
+
+    if (!expr.empty() && expr[0] == '+')
+    {
+        expr.erase(0, 1);
+    }
+
     if (
-        expression.size() >= 2 &&
-        expression.front() == '(' &&
-        expression.back() == ')'
+        expr.size() >= 2 &&
+        expr.front() == '(' &&
+        expr.back() == ')'
         )
     {
         return evaluateExpression(
-            expression.substr(
-                1,
-                expression.size() - 2
-            ),
+            expr.substr(1, expr.size() - 2),
             value
         );
     }
 
     //
+    //if (
+    //    expr.size() >= 2 &&
+    //    expr.front() == '(' &&
+    //    expr.back() == ')'
+    //    )
+    //{
+    //    return evaluateExpression(
+    //        expr.substr(
+    //            1,
+    //            expr.size() - 2
+    //        ),
+    //        value
+    //    );
+    //}
+    //
 
     size_t plusPos =
-        expression.find('+');
+        expr.find('+');
 
     if (plusPos != std::string::npos)
     {
@@ -218,14 +271,14 @@ bool Parser::evaluateExpression(
         long double right;
 
         if (!parseNumber(
-            expression.substr(0, plusPos),
+            expr.substr(0, plusPos),
             left))
         {
             return false;
         }
 
         if (!parseNumber(
-            expression.substr(plusPos + 1),
+            expr.substr(plusPos + 1),
             right))
         {
             return false;
@@ -239,7 +292,7 @@ bool Parser::evaluateExpression(
     //
 
     size_t minusPos =
-        expression.find('-');
+        expr.find('-');
 
     if (minusPos != std::string::npos &&
         minusPos > 0)
@@ -248,14 +301,14 @@ bool Parser::evaluateExpression(
         long double right;
 
         if (!parseNumber(
-            expression.substr(0, minusPos),
+            expr.substr(0, minusPos),
             left))
         {
             return false;
         }
 
         if (!parseNumber(
-            expression.substr(minusPos + 1),
+            expr.substr(minusPos + 1),
             right))
         {
             return false;
@@ -269,7 +322,7 @@ bool Parser::evaluateExpression(
     //
 
     size_t multiplyPos =
-        expression.find('*');
+        expr.find('*');
 
     if (multiplyPos != std::string::npos)
     {
@@ -277,14 +330,14 @@ bool Parser::evaluateExpression(
         long double right;
 
         if (!parseNumber(
-            expression.substr(0, multiplyPos),
+            expr.substr(0, multiplyPos),
             left))
         {
             return false;
         }
 
         if (!parseNumber(
-            expression.substr(multiplyPos + 1),
+            expr.substr(multiplyPos + 1),
             right))
         {
             return false;
@@ -298,7 +351,7 @@ bool Parser::evaluateExpression(
     //
 
     size_t dividePos =
-        expression.find('/');
+        expr.find('/');
 
     if (dividePos != std::string::npos)
     {
@@ -306,14 +359,14 @@ bool Parser::evaluateExpression(
         long double right;
 
         if (!parseNumber(
-            expression.substr(0, dividePos),
+            expr.substr(0, dividePos),
             left))
         {
             return false;
         }
 
         if (!parseNumber(
-            expression.substr(dividePos + 1),
+            expr.substr(dividePos + 1),
             right))
         {
             return false;
@@ -330,7 +383,7 @@ bool Parser::evaluateExpression(
     }
 
     return parseNumber(
-        expression,
+        expr,
         value
     );
 }
