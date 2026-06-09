@@ -192,6 +192,23 @@ bool Parser::evaluateExpression(
     long double& value
 )
 {
+    if (
+        expression.size() >= 2 &&
+        expression.front() == '(' &&
+        expression.back() == ')'
+        )
+    {
+        return evaluateExpression(
+            expression.substr(
+                1,
+                expression.size() - 2
+            ),
+            value
+        );
+    }
+
+    //
+
     size_t plusPos =
         expression.find('+');
 
@@ -218,6 +235,8 @@ bool Parser::evaluateExpression(
 
         return true;
     }
+
+    //
 
     size_t minusPos =
         expression.find('-');
@@ -247,11 +266,76 @@ bool Parser::evaluateExpression(
         return true;
     }
 
+    //
+
+    size_t multiplyPos =
+        expression.find('*');
+
+    if (multiplyPos != std::string::npos)
+    {
+        long double left;
+        long double right;
+
+        if (!parseNumber(
+            expression.substr(0, multiplyPos),
+            left))
+        {
+            return false;
+        }
+
+        if (!parseNumber(
+            expression.substr(multiplyPos + 1),
+            right))
+        {
+            return false;
+        }
+
+        value = left * right;
+
+        return true;
+    }
+
+    //
+
+    size_t dividePos =
+        expression.find('/');
+
+    if (dividePos != std::string::npos)
+    {
+        long double left;
+        long double right;
+
+        if (!parseNumber(
+            expression.substr(0, dividePos),
+            left))
+        {
+            return false;
+        }
+
+        if (!parseNumber(
+            expression.substr(dividePos + 1),
+            right))
+        {
+            return false;
+        }
+
+        if (right == 0)
+        {
+            return false;
+        }
+
+        value = left / right;
+
+        return true;
+    }
+
     return parseNumber(
         expression,
         value
     );
 }
+
+
 //{
 //    std::stringstream ss(expression);
 //

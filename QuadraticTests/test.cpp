@@ -168,3 +168,45 @@ TEST(ParserTests, EvaluateMinus)
     ASSERT_TRUE(result);
     ASSERT_EQ(value, 6);
 }
+
+TEST(ParserTests, EvaluateMultiply)
+{
+    long double value;
+
+    bool result =
+        Parser::evaluateExpression(
+            "2*3",
+            value
+        );
+
+    ASSERT_TRUE(result);
+    ASSERT_EQ(value, 6);
+}
+
+TEST(ParserTests, EvaluateDivide)
+{
+    long double value;
+
+    bool result =
+        Parser::evaluateExpression(
+            "10/2",
+            value
+        );
+
+    ASSERT_TRUE(result);
+    ASSERT_EQ(value, 5);
+}
+
+TEST(ParserTests, EvaluateParentheses)
+{
+    long double value;
+
+    bool result =
+        Parser::evaluateExpression(
+            "(2+3)",
+            value
+        );
+
+    ASSERT_TRUE(result);
+    ASSERT_EQ(value, 5);
+}
