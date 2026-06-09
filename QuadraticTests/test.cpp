@@ -140,3 +140,31 @@ TEST(ParserTests, Infinity)
 
     ASSERT_TRUE(result);
 }
+
+TEST(ParserTests, EvaluatePlus)
+{
+    long double value;
+
+    bool result =
+        Parser::evaluateExpression(
+            "2+3",
+            value
+        );
+
+    ASSERT_TRUE(result);
+    ASSERT_EQ(value, 5);
+}
+
+TEST(ParserTests, EvaluateMinus)
+{
+    long double value;
+
+    bool result =
+        Parser::evaluateExpression(
+            "10-4",
+            value
+        );
+
+    ASSERT_TRUE(result);
+    ASSERT_EQ(value, 6);
+}

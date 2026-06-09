@@ -185,5 +185,77 @@ bool Parser::parseEquation(
     //
 
     return true;
-
 }
+
+bool Parser::evaluateExpression(
+    const std::string& expression,
+    long double& value
+)
+{
+    size_t plusPos =
+        expression.find('+');
+
+    if (plusPos != std::string::npos)
+    {
+        long double left;
+        long double right;
+
+        if (!parseNumber(
+            expression.substr(0, plusPos),
+            left))
+        {
+            return false;
+        }
+
+        if (!parseNumber(
+            expression.substr(plusPos + 1),
+            right))
+        {
+            return false;
+        }
+
+        value = left + right;
+
+        return true;
+    }
+
+    size_t minusPos =
+        expression.find('-');
+
+    if (minusPos != std::string::npos &&
+        minusPos > 0)
+    {
+        long double left;
+        long double right;
+
+        if (!parseNumber(
+            expression.substr(0, minusPos),
+            left))
+        {
+            return false;
+        }
+
+        if (!parseNumber(
+            expression.substr(minusPos + 1),
+            right))
+        {
+            return false;
+        }
+
+        value = left - right;
+
+        return true;
+    }
+
+    return parseNumber(
+        expression,
+        value
+    );
+}
+//{
+//    std::stringstream ss(expression);
+//
+//    ss >> value;
+//
+//    return !ss.fail() && ss.eof();
+//}

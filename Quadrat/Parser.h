@@ -22,6 +22,11 @@ public:
         long double& c
     );
 
+    static bool evaluateExpression(
+        const std::string& expression,
+        long double& value
+    );
+
 private:
 
     static bool validateFormat(
